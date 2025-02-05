@@ -28,8 +28,9 @@ class Listogram(list):
             self.types += 1
         
         else:
-            existing_word, current_count = self[index] 
-            self[index] = (existing_word, current_count + count)
+            old_item = self[index] 
+            new_count = old_item[1] + count
+            self[index] = (old_item[0], new_count)
 
         self.tokens += count
 
