@@ -5,9 +5,6 @@ import random
 
 app = Flask(__name__)
 
-# TODO: Initialize your histogram, hash table, or markov chain here.
-# Any code placed here will run only once, when the server starts.
-
 hist = histogram('filename.txt') # instantiate
 
 @app.route("/")
