@@ -1,11 +1,11 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
-from histogram import histogram
+from .histogram import histogram
 import random
 
 app = Flask(__name__)
 
-hist = histogram('filename.txt') # instantiate
+hist = histogram('Code/filename.txt') # instantiate
 
 @app.route("/")
 def home():
