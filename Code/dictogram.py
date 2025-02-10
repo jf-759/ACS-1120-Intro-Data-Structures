@@ -9,7 +9,7 @@ class Dictogram(dict):
 
     def __init__(self, word_list=None):
         """Initialize this histogram as a new dict and count given words."""
-        super(Dictogram, self).__init__()  # Initialize this as a new dict
+        super(Dictogram, self).__init__()  # Initialize this as a new dictionary
         # Add properties to track useful word counts for this histogram
         self.types = 0  # Count of distinct word types in this histogram
         self.tokens = 0  # Total count of all word tokens in this histogram
