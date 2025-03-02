@@ -1,23 +1,31 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
 from histogram import histogram
+from markov_chain import MarkovChain
 from sentence import create_sentence
 import cleanup
 import tokens
 import word_count
 import random
 
-
-
 app = Flask(__name__)
 
-def load_histogram(filename='Code/filename.txt'):
-    """Load and process the text file to generate a histogram."""
-    try: 
+mc = MarkovChain()
+
+def load_histogram_and_train_markov(filename='Code/filename.txt'):
+    """Load and process the text file to generate a histogram and train MarkovChain."""
+    global mc
+
+    if mc.chain: 
+        return
+    
+    try:
         text = cleanup.read_file(filename)
         clean_text = cleanup.clean_text(text)
         word_list = tokens.tokenize(clean_text)
         histogram = word_count.build_histogram(word_list)
+
+        mc.learn(word_list)
 
         if not histogram:
             print("Warning: Histogram is empty!")
@@ -34,29 +42,15 @@ def load_histogram(filename='Code/filename.txt'):
 
 @app.route("/")
 def home():
-    """Route that returns a web page containing the generated text."""
-    hist = load_histogram()
+    """Route that returns a web page containing the generated sentences."""
+    hist = load_histogram_and_train_markov()
 
-    if not hist: # if file is not found
+    if not mc.chain: # if file is not found
         return "<p>Error: No data found in filename.txt</p>"
     
-    keys = list(hist.keys())
-    index = random.randint(0, len(keys) - 1)
-    word = keys[index]
+    sentence = mc.generate_sentence(10)
 
-    return f"<p>{word}<p>"
-
-@app.route("/sentence")
-def generate_sentence():
-    """Route that returns a generated sentence based on the histogram."""
-    hist = load_histogram()
-
-    if not hist:
-        return "<p>Error: No data foun din filename.txt</p>"
-    
-    sentence = create_sentence(hist, word_limit=10)
-
-    return f"<p>{sentence}</p>"
+    return f"<p>{sentence}<p>"
 
 if __name__ == "__main__":
     """To run the Flask server, execute `python app.py` in your terminal.
