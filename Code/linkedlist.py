@@ -100,7 +100,8 @@ class LinkedList:
         node = self.head
 
         while node is not None:
-            if matcher(node.data):
+            print(f'Checkingnode: {node.data}, Matcher type: {type(matcher)}')
+            if callable(matcher) and matcher(node.data):
                 return node.data
             
             node = node.next
