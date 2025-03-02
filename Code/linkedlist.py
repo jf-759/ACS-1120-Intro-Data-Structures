@@ -80,7 +80,7 @@ class LinkedList:
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(1) because we only update head reference."""
+            Running time: O(1) because we only update head reference."""
 
         new_node = Node(item)
 
@@ -98,13 +98,12 @@ class LinkedList:
             Worst case running time: 0(n) if the item is at the tail or not found."""
         
         node = self.head
-        
         while node is not None:
             if matcher in node.data:
                 return True
             
             node = node.next
-
+       
         return False
 
     def replace(self, old_item, new_item):

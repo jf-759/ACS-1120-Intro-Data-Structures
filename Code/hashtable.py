@@ -62,29 +62,30 @@ class HashTable(object):
         
         total_length = 0
         for bucket in self.buckets:
-            total_length += len(bucket)
+            total_length += bucket.length()
 
         return total_length
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         Running time: O(1) on average, 0(n) in worst case due to collisions."""
-        index = self._bucket_index(key)
-        bucket = self.buckets[index]
-        for stored_key, _ in bucket.items():
-            if stored_key == key:
-                return True
+        for bucket in self.buckets:
+            for bucket_key, value in bucket.items():
+                if bucket_key == key:
+                    return True
+                
         return False
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
             Running time: O(1) on average, 0(n) in worst case."""
         index = self._bucket_index(key)
-        bucket = self.buckets[index]
-        for stored_key, value in bucket.items():
-            if stored_key == key:
-                return value
-        raise KeyError('Key not found: {}'.format(key))
+        bucket = self.buckets[index].items()
+        for b in bucket:
+            if b[0] == key:
+                return b[1]
+            
+        raise KeyError('Key not found: {key}')
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
@@ -92,14 +93,12 @@ class HashTable(object):
         
         index = self._bucket_index(key)
         bucket = self.buckets[index]
-        for stored_key, stored_value in bucket.items():
+        for bucket_key, bucket_value in bucket.items():
             
-            if stored_key == key:
-                bucket.delete(stored_key)
-                bucket.append(key, value)
-                return
+            if bucket_key == key:
+                bucket.replace((bucket_key, bucket_value), (key, value))
         
-        bucket.append(key, value)
+        bucket.append((key, value))
         
 
     def delete(self, key):
@@ -109,9 +108,9 @@ class HashTable(object):
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
-        for stored_key, _ in bucket.items():
-            if stored_key == key:
-                bucket.delete(stored_key)
+        for bucket_key, bucket_value in bucket.items():
+            if bucket_key == key:
+                bucket.delete((bucket_key, bucket_value))
                 return
         
         raise KeyError('Key not found: {}'.format(key))
