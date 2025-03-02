@@ -97,11 +97,14 @@ class LinkedList:
             Best case running time: 0(1) if the item is at the head.
             Worst case running time: 0(n) if the item is at the tail or not found."""
         
+        if not callable(matcher):
+            raise TypeError(f"Expected a function, but got {type(matcher)}")
+
         node = self.head
 
         while node is not None:
             print(f'Checkingnode: {node.data}, Matcher type: {type(matcher)}')
-            if callable(matcher) and matcher(node.data):
+            if matcher(node.data):
                 return node.data
             
             node = node.next
