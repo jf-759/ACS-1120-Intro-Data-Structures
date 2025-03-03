@@ -93,6 +93,7 @@ class HashTable(object):
         
         index = self._bucket_index(key)
         bucket = self.buckets[index]
+        
         for bucket_key, bucket_value in bucket.items():
             
             if bucket_key == key:
