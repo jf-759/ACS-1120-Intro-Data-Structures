@@ -1,5 +1,4 @@
 import string
-import re
 
 def read_file(filename):
     """Reads text from a file and returns it as a string."""
