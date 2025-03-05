@@ -1,6 +1,6 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
-from markov_chain import MarkovChain
+# from markov_chain import MarkovChain
 from markov_chain_v2 import MarkovChain
 import cleanup
 import tokens
