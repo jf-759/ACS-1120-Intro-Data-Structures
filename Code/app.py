@@ -2,6 +2,7 @@
 from flask import Flask
 from histogram import histogram
 from markov_chain import MarkovChain
+from markov_chain_v2 import MarkovChain
 from sentence import create_sentence
 import cleanup
 import tokens
