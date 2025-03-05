@@ -4,7 +4,7 @@ def clean_word(word):
     """Remove punctuation from a word and convert it to lowercase."""
     return word.translate(str.maketrans('', '', string.punctuation)).lower()
 
-def histogram (filename):
+def dictogram (filename):
     """Read a file and create a histogram (word frequency dictionary)."""
     histogram = {}
     try:
@@ -33,10 +33,10 @@ def frequency(word, histogram):
 if __name__ == '__main__':
 
     filename = 'Code/filename.txt'
-    hist = histogram(filename)
+    dict = dictogram(filename)
 
-    print(f'Total unique words: {unique_words(hist)}')
-    print(f"Frequency of 'the': {frequency('the', hist)}")
+    print(f'Total unique words: {unique_words(dict)}')
+    print(f"Frequency of 'the': {frequency('the', dict)}")
  
 
     
