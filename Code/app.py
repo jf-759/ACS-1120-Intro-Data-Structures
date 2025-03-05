@@ -1,9 +1,7 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
-from histogram import dictogram
 from markov_chain import MarkovChain
 from markov_chain_v2 import MarkovChain
-from sentence import create_sentence
 import cleanup
 import tokens
 import word_count
