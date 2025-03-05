@@ -1,6 +1,16 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
-# from markov_chain import MarkovChain
+
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+print("Current working directory:", os.getcwd())
+print("Files in the current directory:", os.listdir())
+
+from markov_chain_v2 import MarkovChain
+from markov_chain import MarkovChain
+
 from markov_chain_v2 import MarkovChain
 import cleanup
 import tokens
